@@ -1,6 +1,7 @@
 from langchain.prompts.prompt import PromptTemplate
 from langchain.llms import OpenAI
-from langchain.chains import ChatVectorDBChain
+#from langchain.chains import ChatVectorDBChain  ## biw: this has been depricated!!
+from langchain.chains import ConversationalRetrievalChain
 
 _template = """Given the following conversation and a follow up question, rephrase the follow up question to be a standalone question.
 You can assume the question about the most recent state of the union address.
@@ -25,7 +26,9 @@ QA_PROMPT = PromptTemplate(template=template, input_variables=["question", "cont
 
 def get_chain(vectorstore):
     llm = OpenAI(temperature=0)
-    qa_chain = ChatVectorDBChain.from_llm(
+    
+    #qa_chain = ChatVectorDBChain.from_llm(
+    qa_chain = ConversationalRetrievalChain.from_llm(
         llm,
         vectorstore,
         qa_prompt=QA_PROMPT,

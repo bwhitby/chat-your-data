@@ -1,3 +1,8 @@
+## BIW Note: Failing as langchain `ChatVectorDBChain` is deprecated
+# /Users/brucewhitby/anaconda3/envs/openai/lib/python3.9/site-packages/langchain/chains/conversational_retrieval/base.py:233: 
+### UserWarning: `ChatVectorDBChain` is deprecated - please use `from langchain.chains import ConversationalRetrievalChain`
+
+
 import os
 from typing import Optional, Tuple
 
@@ -56,7 +61,7 @@ with block:
         gr.Markdown("<h3><center>Chat-Your-Data (State-of-the-Union)</center></h3>")
 
         openai_api_key_textbox = gr.Textbox(
-            placeholder="Paste your OpenAI API key (sk-...)",
+            placeholder="Paste your OpenAI API key (sk-...) ..not working?",
             show_label=False,
             lines=1,
             type="password",
