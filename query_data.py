@@ -24,14 +24,41 @@ Answer in Markdown:"""
 QA_PROMPT = PromptTemplate(template=template, input_variables=["question", "context"])
 
 
+def get_chai1n(vectorstore):
+    llm = OpenAI(temperature=0)
+    
+    #qa_chain = ChatVectorDBChain.from_llm(
+    qa_chain = ConversationalRetrievalChain.from_llm(
+        llm = llm,
+        #vectorstore.as_retriever(),  # biw: was just vectorstore 
+        retriever=vectorstore.as_retriever(),  
+        qa_prompt=QA_PROMPT,
+        condense_question_prompt=CONDENSE_QUESTION_PROMPT
+    )
+    return qa_chain
+
+def get_chain2(vectorstore):
+    llm = OpenAI(temperature=0)
+    
+    #qa_chain = ChatVectorDBChain.from_llm(
+    qa_chain = ConversationalRetrievalChain.from_llm(
+        OpenAI(temperature= 0.0), 
+        vectorstore.as_retriever(),  
+        qa_prompt=QA_PROMPT,
+        condense_question_prompt=CONDENSE_QUESTION_PROMPT,
+        verbose = True
+    )
+    return qa_chain
+
 def get_chain(vectorstore):
     llm = OpenAI(temperature=0)
     
     #qa_chain = ChatVectorDBChain.from_llm(
     qa_chain = ConversationalRetrievalChain.from_llm(
-        llm,
-        vectorstore,
-        qa_prompt=QA_PROMPT,
+        OpenAI(temperature= 0.0), 
+        vectorstore.as_retriever(),  
+        #qa_prompt=QA_PROMPT,
         condense_question_prompt=CONDENSE_QUESTION_PROMPT,
+        verbose = True
     )
     return qa_chain
